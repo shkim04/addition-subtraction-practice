@@ -1,0 +1,99 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+#whole-app-container {
+    width: 30%;
+    margin: 30px auto;
+    padding: 2% 2rem;
+    border: 2px solid #000000;
+}
+
+#start {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-btn-container {
+    height: 60px;
+}
+
+.start-btn-container #btn-start, #btn-restart {
+    height: 100%;
+    width: 100px;
+    border: 1px solid #ff0000;
+    border-radius: 3px;
+    background-color: #ffffff;
+    color: #ff0000;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+}
+
+#btn-start:hover, #btn-restart:hover {
+    border: 1px solid #ff0000;
+    background-color: #ff0000;
+    color: #ffffff;
+}
+
+.problem-container {
+    height: 250px;
+}
+
+.next-btn-container {
+    margin-top: 30px;
+    height: 15%;
+}
+
+.next-btn-container .next-or-finish {
+    float: right;
+    height: 100%;
+    width: 60px;
+    border: 1px solid #ff0000;
+    border-radius: 3px;
+    background-color: #ffffff;
+    color: #ff0000;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.next-or-finish:hover {
+    border: 1px solid #ff0000;
+    background-color: #ff0000;
+    color: #ffffff;
+}
+
+.result-container {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#result {
+    font-size: 30px;
+}
+
+.count-container {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#count-up {
+    font-size: 36px;
+}
+
+.clearfix:after {
+    display: block;
+    content: ' ';
+    visibility: hidden;
+    clear: both;
+    height: 0;
+}
