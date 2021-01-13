@@ -155,14 +155,14 @@ export default class ProblemSection extends Component {
 
     nextOrFinish = (current) => {
         const { currentProblem, inputAnswers, exercises } = this.state;
+        console.log(this.state.xCount);
         if(Object.values(inputAnswers).length !== Object.values(exercises[current].answer).length) {
             alert('Fill all the blanks');
         }
         else {
             let count = 0;
-
             for(let keys in inputAnswers) {
-                inputAnswers[keys] === exercises[current].answer[keys] ? count += 0 : count++;
+                inputAnswers[keys] == exercises[current].answer[keys] ? count += 0 : count++;
             }
             
             if(current === exercises.length - 1) {
@@ -203,20 +203,21 @@ export default class ProblemSection extends Component {
         let grade = document.getElementById('result');
         if(xCount >= 14) {
             grade.innerHTML = 'Failed'; this.setState({ gradeColor: 'red'});
+            return;
         }
-        else if(timeEvaluated <= 240) {
+        if(timeEvaluated <= 240) {
             grade.innerHTML = 'Superior'; this.setState({ gradeColor: 'blue'});
         }
-        else if(timeEvaluated > 240 && timeEvaluated <= 300) {
+        else if(timeEvaluated > 240 && timeEvaluated <= 270) {
             grade.innerHTML = 'Excellent'; this.setState({ gradeColor: 'green'})
         }
-        else if(timeEvaluated > 300 && timeEvaluated <= 360) {
+        else if(timeEvaluated > 270 && timeEvaluated <= 300) {
             grade.innerHTML = 'Good'; this.setState({ gradeColor: 'navy'});
         }
-        else if(timeEvaluated > 360 && timeEvaluated <= 420) {
+        else if(timeEvaluated > 300 && timeEvaluated <= 330) {
             grade.innerHTML = 'Average'; this.setState({ gradeColor: 'brown'});
         }
-        else if(timeEvaluated > 420 && timeEvaluated <= 480) {
+        else if(timeEvaluated > 330 && timeEvaluated <= 360) {
             grade.innerHTML = 'Acceptable'; this.setState({ gradeColor: 'yellow'});
         }
         else {
@@ -294,7 +295,7 @@ export default class ProblemSection extends Component {
                         </div> 
                 }
                 <div className='result-container'>
-                    <div id='result' style={{"backgroundColor": gradeColor}}/>
+                    <div id='result' style={{"backgroundColor": gradeColor, "padding": " 5px 10px"}}/>
                 </div>
                 <div className='count-container'>
                     <div id='count-up'>{min}:{sec}</div>    
