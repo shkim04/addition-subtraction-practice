@@ -1,2 +1,2 @@
-# react-vitamin
+# addition-subtraction-practice
 Addition training
