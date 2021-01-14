@@ -11,19 +11,27 @@ const basicBlankRule = {
 const tableInfo = [
     {
         size: 4,
-        range: 100
+        range: 100,
+        xInfo: ['A', 'B', 'C', 'Sum'],
+        yInfo: ['D', 'E', 'F', 'Total']
     },
     {
         size: 5,
-        range: 20
+        range: 20,
+        xInfo: ['A', 'B', 'C', 'D', 'Sum'],
+        yInfo: ['E', 'F', 'G', 'H', 'Total']
     },
     {
         size: 4,
-        range: 100
+        range: 100,
+        xInfo: ['A', 'B', 'C', 'Sum'],
+        yInfo: ['D', 'E', 'F', 'Total']
     },
     {
         size: 5,
-        range: 50
+        range: 50,
+        xInfo: ['A', 'B', 'C', 'D', 'Sum'],
+        yInfo: ['E', 'F', 'G', 'H', 'Total']
     },
 ];
 
@@ -37,6 +45,7 @@ export default class ProblemSection extends Component {
                             return { problem: ex.problem,
                                     answer: ex.answer }
                         }),
+            axisInfo: tableInfo.map(el => ({x: el.xInfo, y: el.yInfo})),
             inputAnswers: {},
             isStarted: false,
             isEvaluated: false,
@@ -139,7 +148,10 @@ export default class ProblemSection extends Component {
 
     startProblems = () => {
         let result = document.getElementById('result');
-        if((this.state.isEvaluated && result.innerHTML != null)) { result.innerHTML = '' } 
+        if((this.state.isEvaluated && result.innerHTML !== null)) { 
+            result.innerHTML = ''; 
+            this.setState({ gradeColor: null }); 
+        } 
         this.setState({
             startTime: Math.floor(Date.now() / 1000),
             isStarted: true,
@@ -155,14 +167,13 @@ export default class ProblemSection extends Component {
 
     nextOrFinish = (current) => {
         const { currentProblem, inputAnswers, exercises } = this.state;
-        console.log(this.state.xCount);
         if(Object.values(inputAnswers).length !== Object.values(exercises[current].answer).length) {
             alert('Fill all the blanks');
         }
         else {
             let count = 0;
             for(let keys in inputAnswers) {
-                inputAnswers[keys] == exercises[current].answer[keys] ? count += 0 : count++;
+                inputAnswers[keys] === exercises[current].answer[keys].toString() ? count += 0 : count++;
             }
             
             if(current === exercises.length - 1) {
@@ -202,26 +213,33 @@ export default class ProblemSection extends Component {
         let timeEvaluated = totalTimeSpent + xCount * 10;
         let grade = document.getElementById('result');
         if(xCount >= 14) {
-            grade.innerHTML = 'Failed'; this.setState({ gradeColor: 'red'});
+            grade.innerHTML = `<div>Correct: ${28 -xCount}/28</div><div>Failed</div>`;
+            this.setState({ gradeColor: 'red'});
             return;
         }
         if(timeEvaluated <= 240) {
-            grade.innerHTML = 'Superior'; this.setState({ gradeColor: 'blue'});
+            grade.innerHTML = `<div>Correct: ${28 -xCount}/28</div><div>Superior</div>`;
+            this.setState({ gradeColor: 'green'});
         }
         else if(timeEvaluated > 240 && timeEvaluated <= 270) {
-            grade.innerHTML = 'Excellent'; this.setState({ gradeColor: 'green'})
+            grade.innerHTML = `<div>Correct: ${28 -xCount}/28</div><div>Excellent</div>`;
+            this.setState({ gradeColor: 'blue'})
         }
         else if(timeEvaluated > 270 && timeEvaluated <= 300) {
-            grade.innerHTML = 'Good'; this.setState({ gradeColor: 'navy'});
+            grade.innerHTML = `<div>Correct: ${28 -xCount}/28</div><div>Good</div>`;
+            this.setState({ gradeColor: 'light-blue'});
         }
         else if(timeEvaluated > 300 && timeEvaluated <= 330) {
-            grade.innerHTML = 'Average'; this.setState({ gradeColor: 'brown'});
+            grade.innerHTML = `<div>Correct: ${28 -xCount}/28</div><div>Average</div>`;
+            this.setState({ gradeColor: 'brown'});
         }
         else if(timeEvaluated > 330 && timeEvaluated <= 360) {
-            grade.innerHTML = 'Acceptable'; this.setState({ gradeColor: 'yellow'});
+            grade.innerHTML = `<div>Correct: ${28 -xCount}/28</div><div>Acceptable</div>`;
+            this.setState({ gradeColor: 'yellow'});
         }
         else {
-            grade.innerHTML = 'Need work'; this.setState({ gradeColor: 'orange'});
+            grade.innerHTML = `<div>Correct: ${28 -xCount}/28</div><div>Need Work</div>`;
+            this.setState({ gradeColor: 'orange'});
         }
     }
 
@@ -259,6 +277,7 @@ export default class ProblemSection extends Component {
                 <ProblemTable
                     key={i}
                     id={i} 
+                    axisInfo={this.state.axisInfo}
                     currentProblem={this.state.currentProblem}
                     problem={this.state.exercises[i].problem}
                     inputAnswers={this.state.inputAnswers}
@@ -295,7 +314,7 @@ export default class ProblemSection extends Component {
                         </div> 
                 }
                 <div className='result-container'>
-                    <div id='result' style={{"backgroundColor": gradeColor, "padding": " 5px 10px"}}/>
+                    <div id='result' style={{"backgroundColor": gradeColor}}/>
                 </div>
                 <div className='count-container'>
                     <div id='count-up'>{min}:{sec}</div>    

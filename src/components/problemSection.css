@@ -7,14 +7,14 @@
 }
 
 #whole-app-container {
-    width: 30%;
+    width: 35%;
     margin: 30px auto;
     padding: 2% 2rem;
-    box-shadow: 0 0 5px 1px #eeeeee;
+    box-shadow: 0 0 5px 1px #dddddd;
 }
 
 #start {
-    height: 250px;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@
 }
 
 .problem-container {
-    height: 250px;
+    height: 300px;
 }
 
 .next-btn-container {
@@ -73,14 +73,25 @@
 }
 
 .result-container {
-    height: 50px;
+    height: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #result {
-    font-size: 30px;
+    font-size: 20px;
+    padding: 5px 10px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#result > div:first-child {
+    font-size: 18px;
+    margin-bottom: 5px;
 }
 
 .count-container {
@@ -92,12 +103,26 @@
 
 #count-up {
     font-size: 36px;
+    padding: 5px 10px;
 }
 
 .clearfix:after {
     display: block;
-    content: ' ';
+    content: '';
     visibility: hidden;
     clear: both;
     height: 0;
+}
+
+@media screen and (max-width: 979px) and (min-width: 650px) {
+    #whole-app-container {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 650px){
+    #whole-app-container {
+        width: 70%;
+        padding: 1% 1rem;
+    }
 }
